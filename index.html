@@ -8,7 +8,7 @@
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$(".level1 > a").click(function(){
-					//debugger;		debug调试
+					//debugger;		debug调试		siblings() 获得匹配集合中每个元素的同胞
 					$(this).addClass("current").next().show().parent().siblings().children("a").removeClass("current")
 					.next().hide();
 					return false;

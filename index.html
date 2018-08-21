@@ -2,9 +2,48 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
+		<script type="text/javascript" src="js/jquery-1.7.1.js" ></script>
+		<link rel="stylesheet" href="css/default.css" />
 		<title></title>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$(".level1 > a").click(function(){
+					//debugger;		debug调试
+					$(this).addClass("current").next().show().parent().siblings().children("a").removeClass("current")
+					.next().hide();
+					return false;
+				});
+			});
+		</script>
 	</head>
 	<body>
-		测试是否可以提交到git上
+		<div class="box">
+			<ul class="menu">
+				<li class="level1">
+					<a href="#none">衬衫</a>
+					<ul class="level2">
+						<li><a href=""><a href="#none">短袖衬衫</a></li>
+						<li><a href=""><a href="#none">短袖衬衫1</a></li>
+						<li><a href=""><a href="#none">短袖衬衫2</a></li>
+					</ul>
+				</li>
+				<li class="level1">
+					<a href="#none">卫衣</a>
+					<ul class="level2">
+						<li><a href=""><a href="#none">短袖卫衣</a></li>
+						<li><a href=""><a href="#none">短袖卫衣1</a></li>
+						<li><a href=""><a href="#none">短袖卫衣2</a></li>
+					</ul>
+				</li>
+				<li class="level1">
+					<a href="#none">裤子</a>
+					<ul class="level2">
+						<li><a href=""><a href="#none">短袖裤子</a></li>
+						<li><a href=""><a href="#none">短袖裤子1</a></li>
+						<li><a href=""><a href="#none">短袖裤子2</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
 	</body>
 </html>

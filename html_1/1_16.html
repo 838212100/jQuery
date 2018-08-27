@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="import" href="../main.html"/>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var $cr = $("#cr");
+				/*var cr = $cr[0];
+				$cr.click(function(){
+					if(cr.checked){
+						console.log("感谢你的支持！你可以继续操作！");
+					}
+				})*/
+				$cr.click(function(){
+					if($cr.is(":checked")){
+						console.log("感谢你的支持！你可以继续操作！");
+					}
+				})
+			})
+		</script>
+	</head>
+	<body>
+		<input type="checkbox" id="cr"/><label for="cr">我已经阅读了上面制度.</label>
+	</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+	<head lang="en">
+		<meta charset="UTF-8">
+		<script src="//cdn.bootcss.com/jquery/2.1.4/jquery.js"></script>
+		<!-- 拖拽的关键  -->
+		<script src="//cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.js"></script>
+		<link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+		<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+		<script>
+			$(document).ready(function() {
+
+				$("#modalDialog").draggable(); //为模态对话框添加拖拽
+				$("#myModal").css("overflow", "hidden"); //禁止模态对话框的半透明背景滚动
+
+			})
+		</script>
+	</head>
+	<body>
+
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">打开示例对话框</button>
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" >
+			<div id="modalDialog" class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">可拖动窗口</h4>
+					</div>
+					<div class="modal-body">
+						按住左键开始拖动吧
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

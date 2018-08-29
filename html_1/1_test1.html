@@ -11,10 +11,8 @@
 
 		<script>
 			$(document).ready(function() {
-
-				$("#modalDialog").draggable(); //为模态对话框添加拖拽
+				$("#modalDialog").draggable({ revert: true }); //为模态对话框添加拖拽
 				$("#myModal").css("overflow", "hidden"); //禁止模态对话框的半透明背景滚动
-
 			})
 		</script>
 	</head>

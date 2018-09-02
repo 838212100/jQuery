@@ -17,10 +17,30 @@
 						console.log("感谢你的支持！你可以继续操作！");
 					}
 				})
+				$("table button").click(function(){
+					 var id = this.id;
+					 console.log(id);
+				});
 			})
 		</script>
 	</head>
 	<body>
 		<input type="checkbox" id="cr"/><label for="cr">我已经阅读了上面制度.</label>
+		<table border="1" id="tb">
+			<tr><th>Header</th><th>Header</th><th><button id="query">
+				<!--<svg width="30px" height="30px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	    			<title>icon-查看@2x</title>
+				    <desc>Created with Sketch.</desc>
+				    <defs></defs>
+				    <g id="icon-查看" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+				        <circle id="Oval" stroke="#4A90E2" cx="18.5" cy="18.5" r="6"></circle>
+				        <path d="M23,23 L27.5,27.5" id="Line-3" stroke="#4A90E2" stroke-linecap="round" stroke-linejoin="round"></path>
+				        <path d="M18.5,16.5 L18.5,15 L18,15.5 L19,15.5 L18.5,15 L18.5,16.5 Z M20.5,18.5 L22,18.5 L21.5,18 L21.5,19 L22,18.5 L20.5,18.5 Z M18.5,20.5 L18.5,22 L19,21.5 L18,21.5 L18.5,22 L18.5,20.5 Z M16.5,18.5 L15,18.5 L15.5,19 L15.5,18 L15,18.5 L16.5,18.5 Z" id="Combined-Shape" stroke="#4A90E2"></path>
+				    </g>
+				</svg>-->
+				查询</button></th></tr>
+			<tr><td>Data</td><th>Header</th><th><button id="edit"><!--<img  src="../img/icon-编辑@2x.svg"/>-->编辑</button></th></tr>
+		</table>
+		
 	</body>
 </html>

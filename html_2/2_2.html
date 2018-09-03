@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="import" href="../main.html"/>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				//$("body div").css("background","#bbffaa"); //所有后代元素
+				//$("body > div").css("background","#bbffaa"); //子代元素(只有儿子,没有孙子)
+				//$(".one + div").css("background","#bbffaa"); //改变one下一个(只下一个)div的背景颜色且该div是one的(后)同辈元素
+				//$("#two ~ div").css("background","#bbffaa"); //修改two的元素后面的所有div背景颜色
+				$(".one").siblings("div").css("background","#bbffaa");//选取.one所有的同辈div元素,无论前后位置
+			})
+		</script>
+		<style type="text/css">
+			div,span,p{
+				width: 140px;
+				height: 140px;
+				margin: 5px;
+				background: #aaa;
+				border: #000 1px solid;
+				float: left;
+				font-size: 17px;
+				font-family: verdana;
+			}
+			div.mini{
+				width: 55px;
+				height: 55px;
+				background-color: #aaa;
+				font-size: 12px;
+			}
+			div.hide{
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="one" id="one">
+			id为one,class为one的div
+			<div class="mini">class为mini</div>
+			<div class="mini">class为mini</div>
+		</div>
+		<div class="one" id="two" title="test">
+			id为two,class为one,title为test的div
+			<div class="mini" title="other">class为mini,title为other的div</div>
+			<div class="mini" title="test">class为mini,title为test的div</div>
+		</div>
+		<div class="one">
+			<div class="mini">class为mini</div>
+			<div class="mini">class为mini</div>
+			<div class="mini">class为mini</div>
+			<div class="mini"></div>
+		</div>
+		<div class="one">
+			<div class="mini">class为mini</div>
+			<div class="mini">class为mini</div>
+			<div class="mini">class为mini</div>
+			<div class="mini" title="tesst">class为mini,title为tesst</div>
+		</div>
+		<div style="display: none;" class="one">
+			style的display为"none"的div
+		</div>
+		<div class="hide">class为"hide"的div</div>
+		<div>
+			包含input的type为"hidden"的div <input type="hidden" size="8"/>
+		</div>
+		<span id="mover">正在执行动画的span元素.</span>
+	</body>
+</html>

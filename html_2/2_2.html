@@ -5,11 +5,10 @@
 		<link rel="import" href="../main.html"/>
 		<script type="text/javascript">
 			$(document).ready(function(){
-				//$("body div").css("background","#bbffaa"); //所有后代元素
-				//$("body > div").css("background","#bbffaa"); //子代元素(只有儿子,没有孙子)
-				//$(".one + div").css("background","#bbffaa"); //改变one下一个(只下一个)div的背景颜色且该div是one的(后)同辈元素
-				//$("#two ~ div").css("background","#bbffaa"); //修改two的元素后面的所有div背景颜色
-				$(".one").siblings("div").css("background","#bbffaa");//选取.one所有的同辈div元素,无论前后位置
+				//$("div.one :nth-child(2)").css("background","#bbffaa");	//改变每个class为one的div父元素下的第二个子元素背景色
+				//$("div.one :first-child").css("background","#bbffaa");	//改变每个class为one的div父元素下的第一个子元素背景色
+				//$("div.one :last-child").css("background","#bbffaa");		//改变每个class为one的div父元素下的最后一个子元素背景色
+				$("div.one :only-child").css("background","#bbffaa");		//如果class为one的div父元素下只有一个子元素,那么改变这个子元素的背景色
 			})
 		</script>
 		<style type="text/css">
@@ -35,9 +34,9 @@
 		</style>
 	</head>
 	<body>
+		<h2>基本过滤选择器</h2>
 		<div class="one" id="one">
 			id为one,class为one的div
-			<div class="mini">class为mini</div>
 			<div class="mini">class为mini</div>
 		</div>
 		<div class="one" id="two" title="test">

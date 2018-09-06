@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="import" href="../main.html"/>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#form1 input:enabled").val("这里变化了！");
+				$("#form1 input:disabled").val("这里变化了！");
+				console.log($("input:checked").length);
+				console.log($("select :selected").text());
+				$("#btn").click(function(){
+					var items = $("input[name='check']:checked");
+					console.log(items.length);
+				});
+			})
+		</script>
+	</head>
+	<body>
+		<form action="#" id="form1">
+			<input type="text" name="add" value="可用文本框" />
+			<br />
+			<input type="text" name="email" disabled="disbaled" value="可用文本框" />
+			<br />
+			<input type="text" name="che" value="可用文本框" />
+			<br />
+			<input type="text" name="name" disabled="disbaled" value="可用文本框" />
+			<br />
+			<br />
+			多选框：<br />
+			<input type="checkbox" name="newsletter" checked="checked" value="test1" />test1
+			<input type="checkbox" name="newsletter" value="test2" />test2
+			<input type="checkbox" name="newsletter" value="test3" />test3
+			<input type="checkbox" name="newsletter" checked="checked" value="test4" />test4
+			<input type="checkbox" name="newsletter" value="test5" />test5
+			<div></div>
+			<br />
+			<select name="test" id="" multiple="multipe" style="height:100px">
+				<option value="">浙江</option>
+				<option value="" selected="selected">湖南</option>
+				<option value="">北京</option>
+				<option value="" selected="selected">天津</option>
+				<option value="">广州</option>
+				<option value="">湖北</option>
+			</select>
+			<br />
+			下拉列表2：<br />
+			<select name="test2" id="">
+				<option value="">浙江</option>
+				<option value="">湖南</option>
+				<option value="" selected="selected">北京</option>
+				<option value="">天津</option>
+				<option value="">广州</option>
+				<option value="">湖北</option>
+			</select>
+			<br />
+			<div></div>
+			<button id="btn">Botton</button><br />
+		</form>
+	</body>
+</html>

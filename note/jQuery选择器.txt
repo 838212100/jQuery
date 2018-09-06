@@ -53,3 +53,27 @@
 	$("div.one :only-child").css("background","#bbffaa");		//如果class为one的div父元素下只有一个子元素,那么改变这个子元素的背景色
 	注：
 		eq(index)只能匹配一个元素,而nth-child将为没一个符合条件的父类元素匹配子元素.nth-child(index)的index是从1开始的,而eq(index)是从0开始的.
+
+8.表单选择器
+	$("#form1 input:enabled").val("这里变化了！");
+	$("#form1 input:disabled").val("这里变化了！");
+	console.log($("input:checked").length);
+	console.log($("select :selected").text());//注	":"前有空格
+	console.log($("#form1 :input").length);//获取表单内表单元个数,包括<input>、<textarea>、<select>和<button>元素
+	console.log($("#form1 :text").length);//获取表单内单行文本框的个数
+	console.log($("#form1 :password").length);//获取表单内密码框的个数
+
+注：选择器中含有空格的注意事项
+例：
+	<div class="test" id="t">
+		<div style="display:none">aa</div>
+		<div style="display:none">bb</div>
+		<div style="display:none">cc</div>
+		<div class="test" style="display:none">dd</div>
+	</div>
+	<div class="test" style="display:none">ee</div>
+	<div class="test" style="display:none">ff</div>
+
+	var $t_a = $(".test :hidden");	带空格的,选取class为"test"的元素里面的隐藏元素,共有4个(id为't'的div里的4个隐藏元素)
+	var $t_b = $(".test:hidden");	没有空格的,选取隐藏的且class为"test"的元素,共有3个
+

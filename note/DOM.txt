@@ -1,0 +1,1 @@
+$("p").hasClass("another");等同于$("p").is(".another");	这个方法是为了增强代码可读性而产生的.

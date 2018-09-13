@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="../js/jquery-1.7.1.min.js" ></script>
+		<style>
+			.content{
+				display: none;
+			}
+		</style>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("h5").bind("click",function(){
+					$(this).next().show();
+				});
+			})
+		</script>
+	</head>
+	<body>
+		<div id="panel">
+			<h5 class="head">什么是jQuery?</h5>
+			<div class="content">jQuery是继Prototype之后又一个优秀的JavaScript库</div>
+		</div>
+	</body>
+</html>

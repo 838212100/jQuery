@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="../js/jquery-1.7.1.min.js" ></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#address").focus(function(){
+					var str = $(this).val();
+					if(str == "请输入邮箱地址"){
+						$(this).val("");
+					}
+				});
+				$("#address").blur(function(){
+					var str = $(this).val();
+					if(str == ""){
+						$(this).val("请输入邮箱地址");
+					}
+				});
+				console.log($("#ss").prev());
+			})
+		</script>
+	</head>
+	<body>
+		<input type="text" id="address" value="请输入邮箱地址"/>
+		<input type="text" id="password" value="请输入邮箱密码"/>
+		<input type="button" id="ss" value="登录" />
+		
+	</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="../js/jquery-1.7.1.min.js" ></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$(".tooltip").mouseover(function(e){
+					this.myTitle = this.title;
+					this.title = "";
+					var tooltip = "<div id='tooltip'>"+this.title+"</div>";
+					$("body").append(tooltip);
+					$("#tooltip").css({
+						"top":e.pageY + "px",
+						"left" : e.pageX + "px"
+					}).show("fast");//设置x坐标和y坐标,并且显示
+					//console.log("显示title");
+				}).mouseout(function(){
+					this.title = this.myTitle;
+					$("#tooltip").remove();
+					//console.log("隐藏title");
+				}).mousemove(function(e){
+					$("#tooltip").css({
+						"top":e.pageY + "px",
+						"left" : e.pageX + "px"
+					})
+				});
+			})
+		</script>
+	</head>
+	<body>
+		<p><a href="#" class="tooltip" title="这是我的超链接提示1.">提示1.</a></p>
+		<p><a href="#" class="tooltip" title="这是我的超链接提示2.">提示2.</a></p>
+		<p><a href="#" title="这是自带提示1.">自带提示1.</a></p>
+		<p><a href="#" title="这是自带提示2.">自带提示2.</a></p>
+	</body>
+</html>

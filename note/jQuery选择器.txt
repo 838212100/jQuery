@@ -5,7 +5,7 @@
 	$("body div").css("background","#bbffaa"); 				//所有后代元素
 	$("body > div").css("background","#bbffaa"); 			//子代元素(只有儿子,没有孙子)
 	
-	$(".one + div").css("background","#bbffaa"); 			//改变one下一个(只下一个)div的背景颜色且该div是one的(后)同辈元素
+	$(".one + div").css("background","#bbffaa"); 			//改变one下一个(只一个)div的背景颜色且该div是one的同辈元素
 		$(".one + div")选择器与next()方法等价,$(".one + div") 等价 $(".one").next("div");
 	
 	$("#two ~ div").css("background","#bbffaa"); 			//修改two的元素后面的所有div背景颜色

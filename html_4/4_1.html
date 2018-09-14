@@ -10,8 +10,10 @@
 		</style>
 		<script type="text/javascript">
 			$(document).ready(function(){
-				$("h5").bind("click",function(){
-					$(this).next().show();
+				$("#panel h5.head").toggle(function(){
+					$(this).next().toggle();
+				},function(){
+					$(this).next().toggle();
 				});
 			})
 		</script>

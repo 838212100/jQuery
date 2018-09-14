@@ -1,0 +1,118 @@
+1.加载DOM
+javaScript		
+			1)使用window.onload方法
+			2)执行时机：在页面中所有的元素(包括元素的所有关联文件)完全加载到浏览器后才执行
+				
+jQuery
+			1)使用$(document).ready()方法
+			2)执行时机：在DOM完全就绪时就可以被调用,此时页面的所有元素对jQuery而言都是可以访问的,
+						但是,这并不意味着这些元素关联的文件都已经下载完毕
+						
+			注：
+				由于在$(document).ready()方法内注册的事件,只要在DOM加载完毕就被执行,因此可能此时元素的关联文件未下载完,
+				例如与图片有关的html下载完成,并且生成DOM树了,但是图片还未加载完成,所以例如图片的高度或宽度这样的属性此时不一定有效,
+				要解决这个问题,可以使用jQuery中另一个关于页面加载的方法----load()方法.load()方法会在元素的onload事件中
+				绑定一个处理函数.如果处理函数绑定给window对象,则会在所有内容(包括窗口、框架、对象和图像等)加载完毕后触发,
+				如果绑定在元素上,则会在元素的内容加载完毕后触发.
+				$(window).load(function(){})
+				等价于javaScript中的代码：
+				window.onload = function(){}
+
+2.事件绑定
+bind(type [, data] ,fn)
+	3个参数：	
+			1)事件类型,包括：blur、focus、click等
+			2)可选参数,作为event.data属性值传递给事件对象的额外数据对象
+			3)绑定处理函数
+
+3.合成事件
+	1)hover()方法	hover(enter,leave);
+		hover()方法用于模拟光标悬停时间.当光标移动到元素上时,会触发指定的一个函数(enter);
+		当光标移出这个元素时,会触发第二个函数(leave)
+		例：
+			$(function(){
+				$("p").hover(function(){
+					$(this).next().show();
+				},function(){
+					$(this).next().hide();
+				});
+			});
+
+	2)toggle()方法	toggle(fn1, fn2 ,... fnN);
+		toggle()方法用于模拟鼠标连续点击事件,第一次点击触发第一个函数,第二次点击触发第二个函数,如果有更多,依次触发,直到最后一个.
+		随后的每次单击都重复对这几个函数的轮番调用	
+
+4.冒泡事件
+	例：<body>
+			<div id="content">
+				外层div元素
+				<span>内层span元素</span> 外层div元素
+			</div>
+		</body>
+	分别在body、div、span上绑定单击事件
+	
+	冒泡事件：
+		像上诉例子中 当点击span元素时,元素的click事件会按照以下顺序冒泡：(1)<span>(2)<div>(3)<body>
+		之所以称之为冒泡,是因为时间会按照DOM的层次结构像水泡一样不断向上直至顶端
+	停止事件冒泡：
+		$('span').bind("click",function(event){
+			event.stopPropagation();
+		});	
+	阻止默认行为：常见的有form提交,<a>标签跳转
+		$('a').bind("click",function(event){
+			event.preventDefault();
+		});	
+		也可用return false;代替
+
+5.事件对象的属性
+	$("a").click(function(event){
+		1)event.type;				获取到事件的类型
+		2)event.preventDefault();	阻止默认事件行为
+		3)event.stopPropagation();	阻止事件冒泡
+		4)event.target;				获取到触发事件的元素
+		5)event.relatedTarget;		在标准DOM中,mouserover和mouseout所发生的元素可以通过event.target来访问,
+									相关元素是通过event.relaterTarget来访问的
+		6)event.pageX和event.pageY	获取到光标相对于页面的x坐标和y坐标
+	});
+	$("a").mousedown(function(event){
+		event.which;				获取鼠标单击事件中获取鼠标的左、中、右键; 1 = 左键; 2 = 中键; 3 = 右键
+	});
+	$("a").keyup(function(event){
+		event.which;				键盘事件中 ctrl的获取 
+	});
+
+6.移除事件
+	$("#delAll").click(function(){
+		$("#del").unbind("click");
+	});
+	unbind([type] ,[data]);
+		第一个参数是事件类型,第二个参数是将要移除的函数
+	例：移除某一个事件
+		$("#btn").bind("click" ,myFun1 = function(){
+			console.log();
+		}).bind("click" ,myFun2 = function(){
+			console.log();
+		}).bind("click" ,myFun3 = function(){
+			console.log();
+		});
+		//删除 绑定函数2
+		$("#btm").unbind("click",myFun2);
+	对于只需要出发移除,随后就要立即解除绑定的情况,用 one()方法
+	one(type ,[data] ,fn);
+	$("#del").one("click" ,function(){});
+
+7.模拟操作	trigger();
+	1)常规模拟
+		既模拟用户操作,进入页面触发的事件.
+		$("#btn").trigger("click");
+		简化写法
+		$("#btn").click();
+	2)自定义模拟
+		$("#btn").bind("myClick" ,function(){
+			console.log();
+		});
+		
+		$("#btn").trigger("myClick");
+	3)传递数据
+		trigger(type ,[data]);
+		第一个参数是要触发的事件类型,第二个参数的要传递给事件处理函数的附加数据,以数组形式传递

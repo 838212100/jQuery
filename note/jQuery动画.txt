@@ -1,0 +1,15 @@
+1.jQuery动画
+
+	1).hide()和.show()				显示与隐藏
+	2).fadeln()和.fadeOut()			只改变元素的不透明度,淡入与淡出
+	3).slideUp()和.slideDown()		只改变元素的高度,由下向上缩短隐藏与由上向下显示
+	
+	注：jQuery中的任何动画效果,都可以指定3中速度参数,即slow,normal,fast(时间分别是0.6秒、0.4秒和0.2秒)
+		show("slow"); 时间show(1000);
+
+2.自定义动画
+	animate(params ,speed ,callback);
+	参数说明：
+		1)params：	一个包含样式属性及值的映射,比如{properyt1:"value1",property2:"value2",...}
+		2)speed：	速度参数,可选
+		3)callback：在动画完成时执行的函数,可选(该回调函数适用于jQuery所有的动画效果方法)

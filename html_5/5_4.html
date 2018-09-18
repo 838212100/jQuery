@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="../js/jquery-1.7.1.min.js" ></script>
+		<link rel="stylesheet" href="style.css" />
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("form :input.required").each(function(i,n){
+					var $required = $("<strong class='high'>*</strong>");
+					if(i == 1){
+						console.log($(this).prop("outerHTML"));
+						console.log($(this).parent().prop("outerHTML"));
+					}
+				})
+				$("form :input").blur(function(){
+					var $parent = $(this).parent();
+					if($(this).is("#username")){
+						if(this.value == "" || this.value.length < 6){
+							var errorMsg = 'sss';
+							$parent.append("<span class='formtips onError'>"+errorMsg+"</span>")
+						}
+					}
+					if($(this).is("#email")){
+						if(this.value == "" || (this.value!="" && !/.+@.+\.[a-zA-Z]{2,4}$/.test(this.value))){
+							var errorMsg = 'sss';
+							$parent.append("<span class='formtips onError'>"+errorMsg+"</span>")
+						}
+					}
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<form action="" mothod="post">
+			<div class="int">
+				<label for="username">用户名：</label>
+				<input type="text" id="username" class="required" />
+			</div>
+			<div class="int">
+				<label for="email">邮箱：</label>
+				<input type="text" id="email" class="required" value="1"/>
+			</div>
+			<div class="int">
+				<label for="personinfo">个人资料：</label>
+				<input type="text" id="personinfo" class="required" />
+			</div>
+			<div class="sub">
+				<input type="submit" value="提交" id="send" /><input type="reset" id="res" />
+			</div>
+		</form>
+	</body>
+</html>

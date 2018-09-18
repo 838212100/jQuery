@@ -1,0 +1,3 @@
+function queryXML(xml){
+	var status = $("status", xml).text();
+}

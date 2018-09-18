@@ -22,3 +22,11 @@ offset();		获取元素在当前视窗的相对偏移
 position();		获取元素相对于最近的一个position样式属性设置为relative或者absolute的祖父节点的相对偏移
 scrollTop();	获取元素的滚动条距顶端的举例
 scrollLeft();	获取元素的滚动条距左侧的举例
+
+例：将选中的tr高亮且选中radio,并去掉其他tr的高亮和radio的选中
+$(this).addClass("selected")					//当进行addClass操作时,对象并未发生变化
+	.siblings().removeClass("selected")			//当执行siblings操作时,对象变为$(this).siblings(),因此后面的操作都是针对个对象的
+		.find(":radio").attr("checked",false)	//当执行.find(":radio").attr("checked",false),对象变为$(this).siblings().radio
+		.end()									//返回$(this).siblings()对象
+	.end()										//返回$(this)对象
+.find(":radio").attr("checked",true);			//选中操作

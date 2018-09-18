@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="../js/jquery-1.7.1.min.js" ></script>
+		<link rel="stylesheet" href="style.css" />
+		<style>
+			.even{background: #FFF38F;}
+			.odd{background: #FFFFEE;}
+			.selected{background: #F999EE;}
+		</style>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("tbody>tr:odd").addClass("odd");
+				$("tbody>tr:even").addClass("even");
+				$("tbody>tr").click(function(){
+					$(this).addClass("selected").siblings().removeClass("selected").find(":radio").attr("checked",false)
+						.end().end().find(":radio").attr("checked",true);
+				})
+				$("tbody>tr").click(function(){
+					//判断当前是否选中
+					var hasSelected = $(this).hasClass('selected');
+					//如果选中,则移出selected类,否则就加上selected类
+					$(this)[hasSelected?"removeClass":"addClass"]('selected')
+					//查找内部的checkbox,设置对应的属性
+						.find('checked').attr('checked' ,!hasSelected);
+				});
+				$("#ck").click(function(){
+					console.log("sssss");
+				}).click();
+			});
+		</script>
+	</head>
+	<body>
+		<div id="ck">ddd</div>
+		<table border="1">
+			<thead>
+				<tr>
+					<th>姓名</th>
+					<th>性别</th>
+					<th>暂住地</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><input type="radio" /></td>
+					<td>shangsan</td>
+					<td>nan</td>
+					<td>浙江</td>
+				</tr>
+				<tr>
+					<td><input type="radio" /></td>
+					<td>shangsan</td>
+					<td>nan</td>
+					<td>浙江</td>
+				</tr>
+				<tr>
+					<td><input type="radio" /></td>
+					<td>shangsan</td>
+					<td>nan</td>
+					<td>浙江</td>
+				</tr>
+				<tr>
+					<td><input type="radio" /></td>
+					<td>shangsan</td>
+					<td>nan</td>
+					<td>浙江</td>
+				</tr>
+				<tr>
+					<td><input type="radio" /></td>
+					<td>shangsan</td>
+					<td>nan</td>
+					<td>浙江</td>
+				</tr>
+				<tr>
+					<td><input type="radio" /></td>
+					<td>shangsan</td>
+					<td>nan</td>
+					<td>浙江</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

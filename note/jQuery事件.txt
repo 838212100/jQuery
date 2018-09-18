@@ -116,3 +116,27 @@ bind(type [, data] ,fn)
 	3)传递数据
 		trigger(type ,[data]);
 		第一个参数是要触发的事件类型,第二个参数的要传递给事件处理函数的附加数据,以数组形式传递
+
+8.三元运算
+	例：
+		$("tbody>tr").click(function(){
+			//判断当前是否选中
+			var hasSelected = $(this).hasClass('selected');
+			//如果选中,则移出selected类,否则就加上selected类
+			$(this)[hasSelected?"removeClass":"addClass"]('selected')
+			//查找内部的checkbox,设置对应的属性
+				.find('checked').attr('checked' ,!hasSelected);
+		});
+		
+		$(this)[addClass]('selected');
+		等价于
+		$(this).addClass('selected');
+
+9.绑定事件后触发事件
+	例：
+		$("#dd").click(function(){
+			console.log("绑定事件后触发事件,打印这句话");
+		}).click();
+
+10.setTimeout();定时任务
+	例：setTimeout('updateMsg()', 4000);		//4秒执行一次

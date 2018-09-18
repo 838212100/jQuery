@@ -1,0 +1,150 @@
+Ajax的核心是XMLHttpRequest
+jQuery对Ajax操作进行了封装,在jQuery中$.ajax()方法属于最底层的方法,第二层是load()、$.get()和$.post()方法，
+第三层是$.getScript()和$.getJSON()方法.
+
+$.ajax()方法
+	$.ajax()方法是jQuery最底层的Ajax实现,$.ajax(options),该方法只有1个参数,但在这个对象里包含了$.ajax()方法所需的请求设置
+		以及回调函数等信息,参数以key/value的形式存在,所有参数都是可选的
+		
+				类型				说明
+	url			String			发送请求的地址(默认为当前页地址)
+	type		String			请求方式(POST或GET)默认为GET
+	timeout		Number			设置请求超时时间(毫秒).此设置将覆盖$.ajaxSetup()方法的全局设置
+	data		Object/String	发送到服务器的数据.例{foo1:"bar1",foo2:"bar2"}或{foo1:["bar1","bar2"]}
+	dataType	String			预期服务器返回的数据类型.可选的类型如下：
+									xml:返回XML文档,可用jQuery处理
+									html:返回纯文本HTML信息;包含的script标签会在插入DOM执行
+									script:返回纯文本JavaScript代码.不会自动缓存结果.除非设置了cache参数.
+										        注意在远程请求时(不在同一个域下),所有POST请求都将转为GET请求
+									json:返回JSON数据
+									jsonp:JSONP格式.使用JSONP形式调用函数时,例如myurl?call back=?
+										  jQuery将自动替换后一个"?"为正确的函数名,以执行回调函数
+									text:返回纯文本字符串
+	beforeSend	Function		发送请求钱可以修改XMLHttpRequest对象的函数.XMLHttpRequest对象是唯一的参数.function(XMLHttpRequest){}
+	complete	Function		请求完成后调用的回调函数(请求成功或失败时均调用)
+								参数:XMLHttpRequest对象和一个描述成功请求类型的字符串
+								function(XMLHttpRequest,textStatus){}
+	success		Function		请求成功之后调用的回调函数,有两个参数
+								(1)由服务器返回,并根据dataType参数进行处理后的数据
+								(2)描述状态的字符串
+								function(data,textStatus){
+									//data可能是xmlDoc、jsonObj、html、text等等
+									this;//调用本次Ajax请求时传递的options参数
+								}
+	error		Function		请求失败时被调用的函数,该函数有3个参数.即
+								XMLHttpRequest对象、错误信息、捕获的错误对象(可选).
+								function(XMLHttpRequest,textStatus,errorThrown){
+									//通常情况下textStatus和errorThrown只有其中一个包含信息
+									this;//调用本次Ajax请求时传递的options参数
+								}
+	global		Boolean			默认为true.表示是否触发全局Ajax事件.设置为false将不会触发全局Ajax事件,
+								AjaxStart或AjaxStop可用于控制各种Ajax事件
+								
+ajax全局事件
+	1)$.ajaxStart()				Ajax请求开始时执行函数	例：添加遮罩层
+	2)$.ajaxStop()				Ajax请求结束时执行函数	例：去除遮罩层
+	3)$.ajaxComplete(callback)	Ajax请求完成时执行函数	
+	4)$.ajaxError(callback)		Ajax请求发生错误时执行函数,捕捉到的错误可以作为最后一个参数传递
+	5)$.ajaxSend(callback)		Ajax请求发送前执行函数
+	6)$.ajaxSuccess(callback)	Ajax请求成功时执行函数
+	注：
+		若在某个Ajax请求里不受全局方法的影响,那么可以将global设置为false
+
+1.load()(url [, data] [, callback])方法
+
+					类型			说明
+	url				String		请求HTML页面的URL地址
+	data(可选)		Object		发送至服务器的key/value数据
+	callback(可选)	Function	请求完成时的回调函数,无论请求成功与否
+	
+	例:
+		$("#resText").load("6_1_test.html" ,{name: "rain" ,age :"22"} ,function(responseText ,textStatus ,XMLRequest){
+			//responseText:		请求返回的内容
+			//textStatus:		请求状态：success、error、notmodified、timeout 4种
+			//XMLRuquest:		XMLRuquest对象
+		});
+	
+	注：
+		load()方法中,无论Ajax请求是否成功,只要请求完成(complete)之后,回调函数(callback)就被触发.
+
+2.$.get()方法
+	$.get(url [, data] [, callback] [, type]);
+					类型			说明
+	url				String		请求的HTML页的URL地址
+	data(可选)		Object		发送至服务器的key/value数据会作为QueryString附加到请求URL中
+	callback(可选)	Function	载入成功时回调函数(只有当Response的返回状态是success才调用该方法)自动将请求结果和状态传递给该方法
+	type(可选)		String		服务器端返回内容的格式,包括xml、html、script、json、text和_default
+
+	回调函数只有两个参数：
+		function(data ,textStatus){
+			//data:			返回的内容,可以是XML文档、JSON文件、HTML片段等等
+			//textStatus:	请求状态：success、error、notmodified、timeout 4种
+		}
+			数据格式(data)
+				1)HTML片段	$("#test").html(data);
+				
+				2)XML文档	返回XML文档的过程实现起来比HTML片段要复杂,但XML文档的可移植性是其他数据格式无法比拟的,
+							处理XML文档与处理HTML文档一样,可用jQuery强大的DOM功能处理
+							function(data, textStatus){
+								var username = $(data).find("comment").attr("username");
+								var textHtml = "<div>"+username+"</div>";
+								$("#test").html(textHtml);
+							}
+					注：
+						由于期待服务器端返回的数据格式是XML文档,因此需要在服务器端设置Content-Type类型：
+						header("Content-Type:text/xml; charset=utf-8");//php
+				
+				3)JSON文件	将第4个参数的返回值设置为"json"来代表服务器端返回的数据格式,JSON的格式非常严格,任何一个不匹配
+							或者缺少逗号,都会引起脚本终止运行
+							function(data, textStatus){
+								var username = data.username;
+								var textHtml = "<div>"+username+"</div>";
+								$("#test").html(textHtml);
+							},"json"
+
+3.$.post()方法
+	与$.get()方法不同之处：
+		1)GET请求会将参数跟在URL后进行传递,而POST请求则是作为HTTP消息的实体内容发送给Web服务区
+		2)GET方式对传输的数据大小有限制(通常不能大于2KB),而是用POST方式传递的数据量要比GET方式大得多(理论上不受限制)
+		3)GET方式请求的数据会被浏览器缓存起来,因此其他人可以从浏览器的历史记录中读取到这些数据.在某种情况下,GET方式会带来严重的安全问题,而POST方式可以避免
+		4)GET方式和POST方式传递的数据在服务器端的获取也不同.
+	注：当load()方法带有参数传递时,会使用POST方式发送请求
+
+4.$.getScript()方法和$.getJosn()方法
+	1)$.getScript()例：
+		$(function(){
+			$("#send").click(function(){
+				$.getScript("test.js", function(){
+					//回调函数
+				});
+			});
+		});
+		
+	2)$.getJosn()例：
+		$(function(){
+			$("#send").click(function(){
+				$.getJosn("test.json", function(data){
+					$("#test").empty();
+					var html = '';
+					$.each(data, function(index, comment){
+						html += '<div>'+comment['username']+'</div>'
+					});
+					$('#test').html(html);
+				});
+			});
+		});
+	3)JSONP(JSON with Padding)是一个非官方的协议,它允许在服务器端集成Script tags返回至客户端,通过JavaScript Callback的形式
+	     实现 跨域访问.目前JSONP已经成为各大公司的Web应用程序跨域首选.
+
+5.serialize()方法
+	serialize()方法也是作用一个jQuery对象,它能够将DOM元素内容序列化为字符串,用于Ajax请求
+	
+6.serializeArray()方法
+	与serialize()方法类似,该方法不是返回字符串,而是将DOM元素序列化后,返回JSON格式的数据
+	可以使用$.each()函数对数据进行迭代输出
+
+7.$.param()方法
+	它是serialize()方法的核心,用来对一个驻足或对象按照key/value进行序列化
+	例：var obj = {a:1,b：2,c:3}；
+		var k = $.param(obj);
+		console.log(k);//a=1&b=2&c=3

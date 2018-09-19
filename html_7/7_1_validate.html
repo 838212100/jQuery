@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="../js/jquery-1.7.1.min.js" ></script>
+		<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
+		<!-- 中文提示  后缀_TW为繁体中文 -->
+		<script type="text/javascript" src="../js/messages_zh.js" ></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#commentForm").validate({
+					rules:{
+						username:{
+							required:true,
+							minlength:2
+						}
+					}
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<form action="#" class="cmxform" id="commentForm" method="get">
+			用户名：<input type="text" id="username" name="username" size="25" /><br />
+			<input type="submit" value="提交" />
+		</form>
+	</body>
+</html>

@@ -1,0 +1,16 @@
+例：
+;(function($){
+	$.extend({
+		ltrim : function(text){
+			return (text||"").replace(/^\+/g, "");
+		},
+		rtrim : function(text){
+			return (text||"").replace(/\+/g, "");
+		}
+	});
+})(jQuery);
+
+调用：
+jQuery.trim("   test   ");	//test两侧没有
+jQuery.ltrim("   test   ");	//test   左侧没有
+jQuery.rtrim("   test   ");	//   test右侧没有

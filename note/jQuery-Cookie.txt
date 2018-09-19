@@ -1,0 +1,26 @@
+jQuery管理Cookie插件--Cookie
+API:
+1.写入Cookie
+	$.cookie('this_cookie', 'the_value');
+
+2.读取Cookie
+	$.cookie('this_cookie');
+
+3.删除Cookie
+	$.cookie('this_cookie', null);
+说明：this_cookie为Cookie名,设置为null即删除此Cookie.必须使用与之前设置时相同的路径(path)和域名(domain),才可以正确删除Cookie
+
+4.其他可选参数
+	$.cookie('this_cookie', 'this_value', {
+		expires:7,
+		path:'/',
+		domain:'jquery.com',
+		secure:true
+	});
+说明：
+	expires：(Number|Data)有效期.可以设置一个整数作为有效期(单位：天),也可以直接设置一个日期对象作为Cookie的过期日期.
+				如果指定日期为负数,此Cookie将被删除.如果不设置或者设置为null,那么此Cookie将被当做Session Cookie处理,
+				并且在浏览器关闭后删除.
+	path:	(String)cookie的路径属性.默认是创建该Cookie的页面路径
+	domain：	(String)cookie的域名属性.默认是创建该Cookie的页面域名
+	secure：	(Boolean)如果设置为true,那么此Cookie的传输会要求一个安全协议,例如HTTPS

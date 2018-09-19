@@ -1,0 +1,41 @@
+jQuery提供了两个用于扩展jQuery功能的方法,即jQuery.fn.extend()方法和jQuery.extend()方法,这两个方法都接受一个参数,类型为Object
+Object对象的"名/值对"分别代表着"函数或方法名/函数主体"
+jQuery.extend()方法除了可以用于扩展jQuery对象之外,还有一个强大的功能,就是扩展已有的Object对象,代码如下：
+	jQuery.extend(target,obj1,...[objN])
+jQuery.extend()方法经常被用于设置插件方法的一系列参数,如下;
+	function foo(options){
+		options=jQuery.extend({
+			name:"bar",
+			length:5,
+			dataType:"xml"		/* 默认参数 */
+		},options);				/* options为传递的参数 */
+	}
+如果用户调用foo()方法的时候,在传递的参数options对象中设置了相应的值,那么就使用设置的值,否则使用默认值.代码如下：
+foo({name:"a",length:"4",dataType:"json"});
+foo({name:"a",length:"4"});
+foo({name:"a"});
+foo();
+
+编写jQuery插件
+	;function($){
+		$.fn.extend({
+			"color":function(value){
+				return this.css("color",value);
+			}
+		});
+	})(jQuery);
+	
+编写一组jQuery插件
+	;function($){
+		$.fn.extend({
+			"color":function(value){
+				//代码
+			},
+			"border":function(value){
+				//代码
+			},
+			"backgroud":function(value){
+				//代码
+			}
+		});
+	})(jQuery);

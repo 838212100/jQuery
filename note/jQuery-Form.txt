@@ -1,0 +1,100 @@
+jQuery表单验证插件--Form
+
+1.核心方法--ajaxForm()和ajaxSubmit()
+	通过核心方法ajaxForm(),能很容易地将表单升级为Ajax提交方式
+	通过调用ajaxSubmit()方法来相应用户的提交表单操作,从而使表单的提交方式由传统的提交方式转变为Ajax提交方式
+	通过Form插件的这两个核心方法,都可以在不修改表单的HTML代码结构的情况下,轻易的将表单的提交方式升级为Ajax提交方式
+
+例：
+	<form action="longin.action" id="myForm" method="post">
+		用户名：<input type="text" id="username" name="username" size="25" /><br />
+		<input type="submit" id="test" value="提交" />
+		<div id="output1" sytle="display:none;"></div>
+	</form>
+	ajaxForm()
+	$("#myForm").ajaxForm(function(){
+		$("#output1").html("success").show();
+	});
+	
+	ajaxSubmit()
+	$("#myForm").submit(function(){
+		$(this).ajaxSubmit(function(){
+			$("#output1").html("success").show();
+		});
+		return false;//阻止表单默认提交
+	});
+
+2.ajaxForm()方法和ajaxSubmit()方法的参数
+	1)ajaxForm()方法和ajaxSubmit()方法都能接受0个或者1个参数.当为单个参数时,该参数既可以是一个回调函数,也可以是一个options对象.
+	     上面的例子就是回调函数,接下来介绍options对象
+		var options = {
+			target: "#output1",				//把服务器返回的内容放入id为output1的元素中
+			beforeSubmit: showRequest,		//提交前的回调函数
+			success： showResponse,			//提交后的回调函数
+			url： url,						//默认是form的action,如果申明,则会覆盖
+			type： type,						//默认是form的method('get' or 'post'),如果申明,则会覆盖
+			dataType： null,					//'xml','script',or 'json'(接受服务端返回的类型)
+			clearForm： true,				//成功提交后,清除所有表单元素的值
+			resetForm： true,				//成功提交后,重置所有表单元素的值
+			timeout：3000					//限制请求的时间,当请求大于3秒后,跳出请求
+		}
+		定义options对象之后,就可以把这个options对象传递给ajaxForm()方法,jQuery代码如下：$("#myFomr").ajaxForm(options);
+	
+	2)beforeSubmit: showRequest方法代码如下：
+		function showRequest(formData ,jqForm ,options){
+			var queryString = $.param(formData);
+			return true;
+		}
+		共3个参数：formData ,jqForm ,options
+			(1)第一个参数formData是数组对象.使用$.param()方法把它转换为字符串,得到以下格式：name=1$address=2
+			(2)jqForm是jQuery对象,它封装了表单的元素.如果需要访问jqForm的DOM元素,可以把jqForm转换为DOM对象.
+				var formElement = jqForm[0];
+				var address = formElement.address.value;
+			(3)options就是options对象.
+		注：在这个函数中(beforeSubmit),只要不返回false,表单都会被允许提交.可以利用这个特性,在表单提交之前验证数据.
+			利用参数formData验证表单
+				function showRequest(formData ,jqForm ,options){
+					for(var i= 0; i < formData.length; i++){
+						if(!formData[i].value){
+							console.log("不能为空");
+							return false;
+						}
+					}
+					var queryString = $.param(formData);
+					return true;
+				}
+			利用jqForm验证表单
+				function showRequest(formData ,jqForm ,options){
+					var form = jqForm[0];
+					if(!form.name.value || !form.address.value){
+						console.log("不能为空");
+						return false;
+					}
+					var queryString = $.param(formData);
+					return true;
+				}
+			利用fieldValue()方法验证表单：将表单元素插入到数组中,如果表单元素的值被判定无效,则数组为空,否则数据将包含一个或多个元素的值.
+										 返回的是数组,而不是jQuery对象,因此不能进行链式操作.
+				function showRequest(formData ,jqForm ,options){
+					var usernameValue = $('input[name=name]').fieldValue();
+					var addressValue = $('input[name=address]').fieldValue();
+					if(!usernameValue[0] || !addressValue[0]){
+						console.log("不能为空");
+						return false;
+					}
+					var queryString = $.param(formData);
+					return true;
+				}
+				
+			
+	3)success: showResponse方法代码如下
+		function showResponse(responseText, statusText, xhr, $form){
+			console.log('状态：'+ statusText + '\n 返回的内容是：\n '+ responseText);
+		}
+		共4个参数：responseText, statusText, xhr, $form,其中responseText, statusText比较常用
+			(1)statusText只是返回一个状态,如success、error等
+			(2)responseText携带着服务器返回的数据内容.
+				responseText会根据这是的options对象中的dataType属性来返回相应格式的内容.
+				options对象中dataType设置的为xml,以XML方式解析数据：function processXml(responseXML){console.log($('name',responseXML).text());}
+				options对象中dataType设置的为json,以XML方式解析数据：function processJson(data){console.log(data.name);}
+				

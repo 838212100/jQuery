@@ -1,0 +1,22 @@
+jQuery表单验证插件--validate
+
+1.简单例子：
+	$("#commentForm").validate({
+			rules:{
+				username:{
+					required:true,
+					minlength:2
+				}
+			}
+		});
+	});
+
+2.自定义规则
+	//自定义一个验证方法
+	$.validate.addMethod(
+		"formula",							//验证方法名称
+		function(value, element, param){	//验证规则
+			return value == eval(param);
+		},
+		"请正确输入数学公式计算后的结果"		//验证提示信息
+	);

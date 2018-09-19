@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="../js/jquery-1.7.1.min.js" ></script>
+		<script>
+			;(function($){
+				$.fn.extend({
+					"color":function(value){
+						return this.css("color",value);
+					}
+				});
+			})(jQuery);
+			//插件应用
+			$(function(){
+				//查看第一个div的color样式值
+				console.log($("div").color());
+				console.log($("div").color("red"));
+			});
+		</script>
+	</head>
+	<body>
+		<div class="a">red</div>
+		<div style="color:blue">blue</div>
+		<div style="color:green">green</div>
+		<div style="color:yellow">yellow</div>
+	</body>
+</html>

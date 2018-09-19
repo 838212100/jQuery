@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="../js/jquery-1.7.1.min.js" ></script>
+		<script type="text/javascript" src="../js/jquery.form.min.js" ></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#myForm").ajaxForm(function(){
+					$("#output1").html("success").show();
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<form action="#" id="myForm" method="post">
+			用户名：<input type="text" id="username" name="username" size="25" /><br />
+			地址：<input type="text" name="address" /><br />
+			自我介绍：<textarea name="comment" id="" cols="30" rows="10"></textarea><br />
+			<input type="submit" id="test" value="提交" />
+			<div id="output1" sytle="display:none;"></div>
+		</form>
+	</body>
+</html>

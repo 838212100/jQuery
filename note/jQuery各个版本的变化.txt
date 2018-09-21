@@ -1,0 +1,4 @@
+从1.7版本
+1.新事件API：on() 和 off()
+	on()替代了之前版本中的bind()、delegate()和live();
+	off()替代了以前版本中的unbind()、undelegate()和die();

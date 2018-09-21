@@ -1,0 +1,117 @@
+jQuery性能优化
+1.使用最新版本的jQuery类库
+
+2.使用适合的选择器
+	1)$("#id")使用id来定位DOM元素无疑是最佳提高性能的方式
+	2)$("p"),$("div"),$("input")标签选择器的性能也是不错的
+	3)$(".class")例：对于IE8或者更早版本,只能靠使用DOM搜索方式来实现,建议选择性使用
+	4)$("[attribute=value]")对于利用属性来定位DOM元素,性能不是非常理想.建议开发中尽量避免这种对性能有害的方式
+	5)$(":hidden")和利用属性来定位DOM类似,尽量不要使用,若坚持这样方式,请使用ID选择器定位到父元素,然后在使用该选择器
+	注：
+		1)尽量使用ID选择器
+		2)尽量给选择器指定上下文
+
+
+3.缓存对象
+	例：
+		$("#light input.on").css("color" ,"red");
+		$("#light input.on").bind(function(){});
+		修改为：
+		var $active_light = $("#light input.on");//缓存变量
+		$active_light.css("color" ,"red").bind(function(){});//链式编程
+	如果你打算在其他函数中使用jQuery对象,那么你可以把他们环迅到全局环境中,例：
+		window.$my = {
+			head:$("head"),
+			traffic_light : $("#traffic_light"),
+			traffic_button : $("#traffic_button")
+		};
+		function do_something(){
+			//现在你可以引用储存的结果并操作他们
+			var script = document.createElement("script");
+			$my.head.append(script);
+			//当你在函数内部操作时,可以继续将查询存入全局对象中去
+			$my.cool_results = $("#some_ul li");
+			$my.other_results = $("#some_table td");
+			//将全局函数作为一个普通的jQuery对象去使用
+			$my.cool_results.css("border-color","red");
+			$my.other_results.css("border-color","red");
+		}
+		//你也可以在其他函数中使用它
+	注：
+		永远不要让相同的选择器在你的代码里出现多次
+
+4.循环时的DOM操作
+	例：
+		var str = "";
+		for(var i = 0; i < 100; i++){
+			str.append("<li>+"i"+</li>");
+		}
+	修改为
+		var str = "";
+		for(var i = 0; i < 100; i++){
+			str += "<li>+"i"+</li>";
+		}
+		$("#ss").html(str);
+	尽可能减少DOM操作,应将整个元素字符串在插入DOM之前全部创建好
+
+5.数组方式使用jQuery对象
+	使用jQuery选择器获取结果是一个jQuery对象.然而jQuery类库会让你感觉你正在使用一个定义了索引和长度的数组.
+	在性能方面,建议使用for或者while循环来处理,而不是$.each(),这样能更快
+
+6.事件代理
+	每一个JavaScript事件都会冒泡到父级节点.当我们需要给多个元素调用同个函数时这点会很有用.
+	例：表格中,点击td背景色变化
+		$("#myTable td").click(function(){
+			$(this).css("background","red");
+		})
+		当有100个td元素,在使用上面的方法时,就绑定了100个事件,这样将带来很负面的性能影响,修改：
+		向父节点绑定一次事件,然后通过e.target获取到点击的当前元素
+		$("#myTable").click(function(e){
+			var $clicked = $(e.target);		//e.target 捕捉到触发的目标元素
+			$clicked.css("background","red");
+		})
+		改进的方法中你只为一个元素绑定了事件.性能优于之前.jQuery1.7中提供了一个新的方式on():
+		$("#myTable").on("click","td",function(){
+			$(this).css("background","red");
+		})
+
+7.将你的代码转化成jQuery插件
+	将每次需要花上事件去开发类似的jQuery代码,可以考虑将代码变成插件.创建一个插件代码如下：
+	;(function(){
+		$fn.yourPluginName = function(){
+			//
+			return this;
+		}
+	})(jQuery);
+
+8.使用join()来拼接字符串
+	也许之前一直使用"+"来拼接字符串,现在你可以改改了.使用join()确实有助于优化性能,尤其是长字符串处理的时候.
+	var array = [];
+	for(var i=0; i<=10000; i++){
+		array[i] = '<li>'+i+'</li>';
+	}
+	$("#list").html(array.join(''));
+
+9.合理利用HTML5的Data属性
+	HTML5的data属性可以帮助我们插入数据,特别是前后端的数据交换.有效利用HTML5的属性,来自动得到数据：
+	<div id="d1" data-role="page" data-last-value="43" data-options='{"name":"John"}'></div>
+	为了读取数据,需要以下代码：
+	$("#d1").data("role");			//"page"
+	$("#d1").data("lastValue");		//43
+	$("#d1").data("options").name;	//"John"
+
+10.尽量使用原生的JavaScript方法
+	使用原生方法不需要拐弯抹角的去调用许多函数,例：
+	$(this).css("color","red");
+	$("<p></p>");
+	修改为：
+	this.style.color = "red";
+	$(document.createElement("p"));
+	经验告诉我们,方法的选择很重要,有时候你也许根本不需要jQuery
+
+11.压缩JavaScript
+	现在的Web项目总是离不开大量的JavaScript,而JS文件的体积越来越大,随之也影响到页面的感知性能,因此,需要对JavaScript文件进行压缩
+	另一方面则是去除JavaScript文件里的注释、空白,并且压缩局部变量长度等.
+
+
+

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width ,initial-scale=1" charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/jquery.mobile-1.0.1.min.css" />
+		<script type="text/javascript" src="../js/jquery-1.7.1.min.js" ></script>
+		<script type="text/javascript" src="../js/jquery.mobile-1.0.1.min.js" ></script>
+		<script>
+			$(function(){
+				console.log($("#ss").context);
+			});
+		</script>
+	</head>
+	<body>
+		<input type="text" name="ss" id="ss" value="" />
+		<ul data-role="listview" data-inset = "true">
+			<li><a href="#">Acura</a></li>
+			<li><a href="#">Audi</a></li>
+			<li><a href="#">BMW</a></li>
+			<li><a href="#">Cadillac</a></li>
+			<li><a href="#">Ferrari</a></li>
+		</ul>
+		<ul data-role="listview" data-inset="true" data-theme="e">
+			<li><a href="#">Acura</a></li>
+			<li><a href="#">Audi</a></li>
+			<li><a href="#">BMW</a></li>
+			<li><a href="#">Cadillac</a></li>
+			<li><a href="#">Ferrari</a></li>
+		</ul>
+	</body>
+</html>

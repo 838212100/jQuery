@@ -1,0 +1,11 @@
+jQuery Mobile是用来填补jQuery在移动设备应用上的缺憾的一个新项目
+
+我们经常把Web分为三个层：
+	1)结构层		2)表现层		3)行为层
+	对应的技术,分别是：
+	1)HTML		2)CSS		3)JavaScript
+
+1.data-role属性
+	在标签中加入data-role="page"属性,这样jQuery Mobile就会知道哪些内容需要处理
+	注：
+		data-属性是HTML5新推出的很有趣的一个特性,它可以让开发人员添加任意属性到html标签中,只要添加的属性有"data-"前缀

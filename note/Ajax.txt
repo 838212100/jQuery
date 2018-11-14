@@ -17,7 +17,7 @@ $.ajax()方法
 									script:返回纯文本JavaScript代码.不会自动缓存结果.除非设置了cache参数.
 										        注意在远程请求时(不在同一个域下),所有POST请求都将转为GET请求
 									json:返回JSON数据
-									jsonp:JSONP格式.使用JSONP形式调用函数时,例如myurl?call back=?
+									jsonp:JSONP格式.使用JSONP形式调用函数时,例如myurl?callback=?
 										  jQuery将自动替换后一个"?"为正确的函数名,以执行回调函数
 									text:返回纯文本字符串
 	beforeSend	Function		发送请求钱可以修改XMLHttpRequest对象的函数.XMLHttpRequest对象是唯一的参数.function(XMLHttpRequest){}
